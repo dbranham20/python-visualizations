@@ -4,7 +4,7 @@ import plotly
 import plotly.figure_factory as ff
 import numpy as np
 from collections import Counter
-plotly.tools.set_credentials_file(username='branhami2', api_key='oKbNmzxHVEtjnWLFU6SP')
+plotly.tools.set_credentials_file(username='USERNAME', api_key='KEY')
 
 # Colors for map
 scl = [[0.0, 'rgb(255, 0, 0)'],[0.2, 'rgb(255, 127, 127)'],[0.4, 'rgb(255, 211, 211)'],\
