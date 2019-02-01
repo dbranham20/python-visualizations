@@ -4,7 +4,7 @@ import plotly
 import plotly.figure_factory as ff
 import numpy as np
 from collections import Counter
-plotly.tools.set_credentials_file(username='USERNAME', api_key='KEY')
+plotly.tools.set_credentials_file(username='NAME', api_key='KEY')
 
 # Colors for map
 scl = [[0.0, 'rgb(255, 0, 0)'],[0.2, 'rgb(255, 127, 127)'],[0.4, 'rgb(255, 211, 211)'],\
@@ -20,7 +20,7 @@ def prepareDF(states, stateAVG, stateNum):
 	for index, row in totalsDF.iterrows():
 		totalsDF.at[index, 'AVG'] = stateAVG[row['State']]
 		totalsDF.at[index, 'numSAT'] = stateNum[str(row['State'])]
-		totalsDF.at[index, 'text'] = "Colleges Reporting: " + str(stateNum[str(row['State'])])
+		totalsDF.at[index, 'text'] = "Averages Reported: " + str(stateNum[str(row['State'])])
 
 	return totalsDF
 
@@ -57,7 +57,7 @@ def produceMap(totalsDF):
 
 for year in range(2001,2017):
 	print("Starting large file for " + str(year) + "...")
-	DF = pd.read_csv(str(year)+ ".csv")
+	DF = pd.read_csv(str(year)+ ".csv", low_memory=False)
 	DF= DF.astype(str)
 	replaceDF = DF.replace({'nan' : None})
 	replaceDF.dropna(axis=1, how="all", inplace=True)
@@ -66,7 +66,7 @@ for year in range(2001,2017):
 	specificDF = pd.DataFrame(columns=['State','SAT','Total','Num','AVG'])
 
 	print("Starting small file for " + str(year) + "...")
-	DF = pd.read_csv("new" + str(year) + ".csv")
+	DF = pd.read_csv("new" + str(year) + ".csv", low_memory=False)
 
 	specificDF['SAT'] = DF['SAT_AVG']
 	specificDF['State'] = DF['STABBR']
@@ -88,8 +88,6 @@ for year in range(2001,2017):
 		stateTotal[row['State']] += float(row['SAT'])
 		stateNum[row['State']] += 1
 	
-	print(str(specificDF.at[1,'AVG']))
-
 print("Math...")
 stateAVG={x:int(stateTotal[x])/stateNum[x] for x in stateTotal}
 
