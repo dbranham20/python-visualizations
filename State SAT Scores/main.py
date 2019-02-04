@@ -4,11 +4,11 @@ import plotly
 import plotly.figure_factory as ff
 import numpy as np
 from collections import Counter
-plotly.tools.set_credentials_file(username='NAME', api_key='KEY')
+plotly.tools.set_credentials_file(username='USERNAME', api_key='KEY')
 
 # Colors for map
-scl = [[0.0, 'rgb(255, 0, 0)'],[0.2, 'rgb(255, 127, 127)'],[0.4, 'rgb(255, 211, 211)'],\
-            [0.6, 'rgb(191, 207, 255)'],[0.8, 'rgb(99, 137, 249)'],[1.0, 'rgb(0, 63, 255)']]
+scl = [[0.0, 'rgb(41, 46, 73)'],[0.2, 'rgb(70, 78, 97)'],[0.4, 'rgb(99, 111, 122)'],\
+            [0.6, 'rgb(128, 144, 147)'],[0.8, 'rgb(157, 177, 172)'],[1.0, 'rgb(187, 210, 197)']]
 
 def prepareDF(states, stateAVG, stateNum):
 	totalsDF = pd.DataFrame(states.flatten())
@@ -56,12 +56,12 @@ def produceMap(totalsDF):
 
 
 for year in range(2001,2017):
-	print("Starting large file for " + str(year) + "...")
-	DF = pd.read_csv(str(year)+ ".csv", low_memory=False)
-	DF= DF.astype(str)
-	replaceDF = DF.replace({'nan' : None})
-	replaceDF.dropna(axis=1, how="all", inplace=True)
-	replaceDF.to_csv("new" + str(year) + ".csv")
+	# print("Starting large file for " + str(year) + "...")
+	# DF = pd.read_csv(str(year)+ ".csv", low_memory=False)
+	# DF= DF.astype(str)
+	# replaceDF = DF.replace({'nan' : None})
+	# replaceDF.dropna(axis=1, how="all", inplace=True)
+	# replaceDF.to_csv("new" + str(year) + ".csv")
 
 	specificDF = pd.DataFrame(columns=['State','SAT','Total','Num','AVG'])
 
@@ -91,5 +91,10 @@ for year in range(2001,2017):
 print("Math...")
 stateAVG={x:int(stateTotal[x])/stateNum[x] for x in stateTotal}
 
+
 DF = prepareDF(states, stateAVG, stateNum)
+
+DF =DF.drop([51,52])
+print(DF)
+
 produceMap(DF)
