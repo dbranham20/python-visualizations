@@ -95,6 +95,4 @@ stateAVG={x:int(stateTotal[x])/stateNum[x] for x in stateTotal}
 DF = prepareDF(states, stateAVG, stateNum)
 
 DF =DF.drop([51,52])
-print(DF)
-
 produceMap(DF)
