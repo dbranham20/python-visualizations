@@ -1,2 +1,5 @@
 #CSV files
 *.csv
+
+#API Key
+key.json
